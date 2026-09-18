@@ -1,0 +1,35 @@
+name: C++ CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-test-deploy:
+
+    runs-on: windows-latest
+
+    steps:
+
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Build
+        shell: cmd
+        run: |
+          g++ main.cpp -o app.exe
+
+      - name: Test
+        shell: cmd
+        run: |
+          call test.bat
+
+      - name: Deploy
+        uses: actions/upload-artifact@v4
+        with:
+          name: cpp-application
+          path: app.exe
