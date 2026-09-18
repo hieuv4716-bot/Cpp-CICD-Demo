@@ -1,0 +1,18 @@
+@echo off
+
+echo ==========================
+echo        RUNNING TEST
+echo ==========================
+
+app.exe > output.txt
+
+findstr /C:"Tong = 30" output.txt > nul
+
+if %errorlevel% equ 0 (
+    echo TEST PASSED
+    exit /b 0
+) else (
+    echo TEST FAILED
+    type output.txt
+    exit /b 1
+)
